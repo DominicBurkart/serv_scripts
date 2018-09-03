@@ -3,4 +3,4 @@
 
 0 1 * * * bash /home/dominic/scripts/movestreams.sh
 0 6 * * * bash /home/dominic/scripts/hyperstream_directory.sh
-0 12 * * 4 bash /home/dominic/scripts/bigsync.sh
+0 10 * * 2 bash /home/dominic/scripts/bigsync.sh
