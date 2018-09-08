@@ -1,12 +1,13 @@
 import sys
-import shutil
+import subprocess
 import time
 import os
 
 indir = sys.argv[1]
 outdir = sys.argv[2]
 
-forty_eight = 48 * 60 * 60
+two_days = 48 * 60 * 60
+one_month = two_days * 15
 
 print("Movestreams started. Copying files that haven't been edited for at least 48 hours.")
 
@@ -14,9 +15,9 @@ found = False
 for root, dirs, files in os.walk(indir):
     for f in files:
         old = os.path.join(root, f)
-        if time.time() - os.path.getmtime(old) > forty_eight:
+        if time.time() - os.path.getmtime(old) > two_days:
             print("Moving file: " + str(old))
-            shutil.move(old, os.path.join(outdir, f))
+            subprocess.run("rsync -a " + old + " " + outdir, shell=True)
             found = True
 
 if not found:
