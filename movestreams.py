@@ -17,7 +17,7 @@ for root, dirs, files in os.walk(indir):
         old = os.path.join(root, f)
         if time.time() - os.path.getmtime(old) > two_days:
             print("Moving file: " + str(old))
-            subprocess.run("rsync -a " + old + " " + outdir, shell=True)
+            subprocess.run("rsync -a " + old + " " + outdir + "; rm " + old, shell=True)
             found = True
 
 if not found:
