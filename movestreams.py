@@ -7,7 +7,6 @@ indir = sys.argv[1]
 outdir = sys.argv[2]
 
 two_days = 48 * 60 * 60
-one_month = two_days * 15
 
 print("Movestreams started. Copying files that haven't been edited for at least 48 hours.")
 
