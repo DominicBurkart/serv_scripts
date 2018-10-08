@@ -1,9 +1,7 @@
 # The five time-and-date fields are as follows: minute (0-59), hour (0-23, 0 = midnight),
 # day (1-31), month (1-12), weekday (0-6, 0 = Sunday).
 
-0 1 * * * nice -n 10 bash /home/dominic/scripts/hyperstream_directory.sh
-0 2 * * 3 nice -n 10 bash /home/dominic/scripts/migrate_all_tsv.sh
-0 2 * * 7 nice -n 10 bash /home/dominic/scripts/migrate_all_tsv.sh
+0 1 * * * nice -n 10 bash /home/dominic/scripts/migrate_all_tsv.sh
 0 3 * * 2 nice -n 10 bash /home/dominic/scripts/bigsync.sh
 0 20 * * 5 nice -n 10 bash /home/dominic/scripts/bigsync.sh
 
