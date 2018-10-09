@@ -8,7 +8,7 @@ outdir = sys.argv[2]
 
 TIME = 25 * 60 * 60
 
-print("Movestreams started. Copying files that were last updated " + str(TIME) + " seconds (" +
+print("Movestreams started. Copying files that were last updated more than " + str(TIME) + " seconds (" +
       str(float(TIME) / (24 * 60 * 60)) + " days) ago.")
 
 found = False
