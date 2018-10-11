@@ -3,5 +3,5 @@
 
 0 1 * * * nice -n 10 bash /home/dominic/scripts/migrate_all_tsv.sh; nice -n 10 bash /home/dominic/scripts/hyperstream_directory.sh
 0 3 * * 2 nice -n 10 bash /home/dominic/scripts/bigsync.sh
-0 20 * * 5 nice -n 10 bash /home/dominic/scripts/bigsync.sh
-
+0 3 * * 5 nice -n 10 bash /home/dominic/scripts/bigsync.sh
+0 20 7 * * nice -n 10 bash /home/dominic/scripts/check_and_repair_migration.sh
