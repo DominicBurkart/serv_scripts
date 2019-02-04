@@ -26,7 +26,7 @@ def get_date(fname: str) -> str:
 
 if __name__ == "__main__":
     print("DELETING OLD DATA FILES.")
-    folder = sys.argv[1] if len(sys.argv) > 1 else "~/twitter_streams"
+    folder = sys.argv[1] if len(sys.argv) > 1 else "twitter_streams"
     fnames = map(lambda fname: os.path.join(folder, fname), os.listdir(folder))
     datemap = {}
     for fname in fnames:
