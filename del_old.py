@@ -2,7 +2,6 @@ import os
 import sys
 from datetime import date
 
-
 example_date = "2019-12-31"
 
 
@@ -19,7 +18,7 @@ def get_date(fname: str) -> str:
     '''Takes the datestring (format: yyyy-mm-dd) from a filename (format: [topic]yyyy-mm-dd.tsv)'''
     i = fname.index(".")
     assert i > 0
-    out = fname[i - len(example_date) : i]
+    out = fname[i - len(example_date): i]
     check_date(out)
     return out
 
@@ -38,7 +37,8 @@ if __name__ == "__main__":
                 datemap[d] = [fname]
         except AssertionError:
             print("INVALID FILENAME (IGNORED): {}".format(fname))
-    latest = max(datemap)
-    for old_date in [d for d in datemap if d != latest]:
-        map(lambda f: os.remove(f), datemap[old_date])
+    latest = max(datemap.keys())
+    for old_date in [d for d in datemap.keys() if d != latest]:
+        for f in datemap[old_date]:
+            os.remove(f)
     print("OLD DATA FILES DELETED.")
