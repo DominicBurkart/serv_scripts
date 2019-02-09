@@ -7,8 +7,8 @@ from typing import NamedTuple
 
 import pandas as pd
 
-collection_file_base_name = "cycle_collection_2019"  # todo. Does not include .csv
-jar_file = "TwitterUserFollowersFriends.jar"  # todo.
+collection_file_base_name = "cycle_collection_2019" # don't include filetype (i.e. ".csv").
+jar_file = "TwitterUserFollowersFriends.jar" # should be in base_dir
 base_dir = "network_collections"
 log_directory = os.path.join(base_dir, "logs")
 collection_file = os.path.join(base_dir, collection_file_base_name + ".csv")
@@ -21,8 +21,6 @@ class Collection(NamedTuple):
     end_time: float
     duration: float
     root_id: int
-    root_followers: int
-    total_collected: int
     log_file: str
     errored: bool
 
@@ -30,21 +28,24 @@ class Collection(NamedTuple):
 def run_collection(id: str) -> Collection:
     start_time = time.time()
     log_file = "{}__{}.txt".format(time.strftime("%Y-%m-%d_%H-%M-%S"), id)
+    dir_before = os.listdir(os.curdir)
 
-    # run collection here
-    resp = subprocess.run("java -Xmx12g -jar {} {} > {}".format(jar_file, id, log_file),
-                          shell=True)  # todo. also this is a memory hog. pipe stuff to the log_file.
-    out_dir = "todo"  # todo detect new folder with this ID
-
+    # run collection
+    resp = subprocess.run("java -Xmx12g -jar {} {} > {}".format(jar_file, id, log_file), shell=True)
     end_time = time.time()
+
+    # get output directory
+    new_files_about_user = [f for f in os.listdir(os.curdir) if f not in dir_before and "_{}_".format(id) in f]
+    assert len(new_files_about_user) == 1  # weird race case. Nothing else should be writing to this directory.
+    assert os.path.isdir(new_files_about_user[0])
+    out_dir = new_files_about_user[0]
+
     return Collection(
         out_dir=out_dir,
         start_time=start_time,
         end_time=end_time,
         duration=end_time - start_time,
         root_id=id,
-        root_followers=0,  # todo
-        total_collected=0,  # todo
         log_file=log_file,
         errored=True if resp.returncode != 0 else False
     )
